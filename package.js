@@ -12,7 +12,7 @@ Package.onUse(function (api) {
   api.use('ecmascript')
   api.use('meteor')
   api.use('mongo')
-  api.use('templating')
+  api.use('templating@1.3.2')
   api.mainModule('notifier.js', 'client')
 })
 
