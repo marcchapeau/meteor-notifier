@@ -1,0 +1,25 @@
+<template name="componentNotifier">
+  <div style="
+    left: 100%;
+    padding-top: {{offsetTop}};
+    position: fixed;
+    top: 0;
+    z-index: {{zIndex}};
+  ">
+    {{#each notifications}}
+      {{> componentNotifierNotification}}
+    {{/each}}
+  </div>
+</template>
+
+<template name="componentNotifierNotification">
+  <div class="{{classes}} {{#if context}}{{contextPrefix}}{{context}}{{/if}}" style="
+    margin-bottom: {{margin}};
+    margin-right: {{margin}};
+    right: 100%;
+    width: {{width}};
+  ">
+    <button class="delete"></button>
+    {{{message}}}
+  </div>
+</template>

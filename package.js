@@ -1,0 +1,24 @@
+Package.describe({
+  name: 'chap:notifier',
+  version: '1.0.0',
+  summary: 'Simple notifications system for Meteor',
+  // URL to the Git repository containing the source code for this package.
+  git: 'https://github.com/marcchapeau/meteor-notifier.git',
+  documentation: 'README.md'
+})
+
+Package.onUse(function (api) {
+  api.versionsFrom('1.6.0.1')
+  api.use('ecmascript')
+  api.use('meteor')
+  api.use('mongo')
+  api.use('templating')
+  api.mainModule('notifier.js', 'client')
+})
+
+Package.onTest(function (api) {
+  api.use('ecmascript')
+  api.use('tinytest')
+  api.use('chap:notifier')
+  api.mainModule('notifier-tests.js')
+})
