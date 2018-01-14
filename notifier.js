@@ -72,12 +72,13 @@ Template.componentNotifier.helpers({
   }
 })
 
-Template.componentNotifierNotification.onCreated(function () {
+Template.componentNotifierNotification.onRendered(function () {
   const notification = Template.currentData()
   if (notification.timeout > 0) {
     this.timeout = Meteor.setTimeout(() => {
-      this.$(this.firstNode).fadeOut('fast', () => {
-        Notifier.collection.remove(notification._id)
+      const element = this.$(this.firstNode)
+      element.animate({opacity: 0}, 'fast').animate({height: 0, marginBottom: 0, paddingBottom: 0, paddingTop: 0}, 'fast', () => {
+        Notifier.close(notification._id)
         Meteor.clearTimeout(this.timeout)
       })
     }, notification.timeout)
@@ -93,7 +94,7 @@ Template.componentNotifierNotification.helpers({
 
 Template.componentNotifierNotification.events({
   'click .delete' (evt, tpl) {
-    Notifier.collection.delete(this._id)
+    Notifier.close(this._id)
   }
 })
 
