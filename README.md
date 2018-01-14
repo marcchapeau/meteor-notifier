@@ -1,6 +1,8 @@
 # Notifier
 
-### Usage
+Simple notifications system for Meteor
+
+## Usage
 
 Add package:
 
@@ -14,7 +16,13 @@ Then place `{{> componentNotifier}}` in your layout template. Recomended usage:
 </body>
 ```
 
-### Configuration
+Finally use it with:
+
+```js
+Notifier.add('Hello world')
+```
+
+## Configuration
 
 Notifier can be configured on the client, be sure to put this in the client side because running it on the server will cause it to crash. The defaults are below:
 
@@ -33,3 +41,7 @@ Notifier.config({
   zIndex = '1000'
 })
 ```
+
+## API
+
+Coming soon.
