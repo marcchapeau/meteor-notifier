@@ -13,19 +13,20 @@ const NotifierAPI = class Notifier {
     this.contextDefault = ''
     this.contextPrefix = ''
     this.margin = '10px'
+    this.maxStackSize = 3
     this.offsetTop = '10px'
     this.timeout = 3000
     this.width = '300px'
     this.zIndex = '1000'
   }
   add (message, context = this.contextDefault, timeout = this.timeout) {
-    if (this.collection.find().count() >= 3) {
+    if (this.collection.find().count() >= this.maxStackSize) {
       const notification = this.collection.findOne({}, {sort: {createdAt: 1}})
       if (notification) {
         this.collection.remove(notification._id)
       }
     }
-    this.collection.insert({message, context, timeout, createdAt: new Date()})
+    return this.collection.insert({message, context, timeout, createdAt: new Date()})
   }
   close (notificationId) {
     this.collection.remove(notificationId)
@@ -38,7 +39,9 @@ const NotifierAPI = class Notifier {
     collection,
     contextDefault,
     contextPrefix,
-    margin, offsetTop,
+    margin,
+    maxStackSize,
+    offsetTop,
     timeout,
     width,
     zIndex
@@ -48,6 +51,7 @@ const NotifierAPI = class Notifier {
     this.contextDefault = contextDefault || this.contextDefault
     this.contextPrefix = contextPrefix || this.contextPrefix
     this.margin = margin || this.margin
+    this.maxStackSize = maxStackSize || this.maxStackSize
     this.offsetTop = offsetTop || this.offsetTop
     this.timeout = timeout || this.timeout
     this.width = width || this.width
