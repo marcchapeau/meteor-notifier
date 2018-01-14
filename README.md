@@ -33,12 +33,13 @@ Notifier.config({
   classes: '',
   // collection: Notification,// Client side collection to store notifications`
   contextDefault: '',
-  contextPrefix = '',
-  margin = '10px',
-  offsetTop = '10px',
-  timeout = 3000,// in milliseconds
-  width = '300px',
-  zIndex = '1000'
+  contextPrefix: '',
+  margin: '10px',
+  maxStackSize: 3,
+  offsetTop: '10px',
+  timeout: 3000,// In milliseconds
+  width: '300px',
+  zIndex: '1000'
 })
 ```
 
