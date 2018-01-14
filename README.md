@@ -61,7 +61,7 @@ Notifier.add('Another information message', 'info', 3000)
 Close a specific notification.
 
 ```js
-cont notificationId = Notifier.add('Hello world')
+const notificationId = Notifier.add('Hello world')
 // ...
 Notifier.close(notificationId)
 ```
