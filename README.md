@@ -46,7 +46,7 @@ Notifier.config({
 
 This entire API and all methods are available only in client code.
 
-### Notifier.add(message,[context, duration])
+### Notifier.add(message, [context, duration])
 
 Add a new notification in the stack. This method returns an id. Examples:
 
