@@ -35,7 +35,7 @@ Notifier.config({
   contextDefault: '',
   contextPrefix: '',
   margin: '10px',
-  maxStackSize: 3,
+  stackLimit: 3,
   offsetTop: '10px',
   timeout: 3000,// In milliseconds
   width: '300px',
@@ -47,7 +47,7 @@ Notifier.config({
 
 This entire API and all methods are available only in client code.
 
-### Notifier.add(message, [context, duration])
+### Notifier.add(message, [context, timeout])
 
 Add a new notification in the stack. This method returns an id.:
 

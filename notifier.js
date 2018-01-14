@@ -13,14 +13,14 @@ const NotifierAPI = class Notifier {
     this.contextDefault = ''
     this.contextPrefix = ''
     this.margin = '10px'
-    this.maxStackSize = 3
+    this.stackLimit = 3
     this.offsetTop = '10px'
     this.timeout = 3000
     this.width = '300px'
     this.zIndex = '1000'
   }
   add (message, context = this.contextDefault, timeout = this.timeout) {
-    if (this.collection.find().count() >= this.maxStackSize) {
+    if (this.collection.find().count() >= this.stackLimit) {
       const notification = this.collection.findOne({}, {sort: {createdAt: 1}})
       if (notification) {
         this.collection.remove(notification._id)
@@ -40,7 +40,7 @@ const NotifierAPI = class Notifier {
     contextDefault,
     contextPrefix,
     margin,
-    maxStackSize,
+    stackLimit,
     offsetTop,
     timeout,
     width,
@@ -51,7 +51,7 @@ const NotifierAPI = class Notifier {
     this.contextDefault = contextDefault || this.contextDefault
     this.contextPrefix = contextPrefix || this.contextPrefix
     this.margin = margin || this.margin
-    this.maxStackSize = maxStackSize || this.maxStackSize
+    this.stackLimit = stackLimit || this.stackLimit
     this.offsetTop = offsetTop || this.offsetTop
     this.timeout = timeout || this.timeout
     this.width = width || this.width
@@ -72,16 +72,24 @@ Template.componentNotifier.helpers({
   }
 })
 
+Template.componentNotifierNotification.onCreated(function () {
+  this.close = () => {
+    const duration = 'fast'
+    this.$(this.firstNode).animate({opacity: 0}, duration).animate({
+      height: 0,
+      marginBottom: 0,
+      paddingBottom: 0,
+      paddingTop: 0
+    }, duration, () => {
+      Notifier.close(this.data._id)
+    })
+  }
+})
+
 Template.componentNotifierNotification.onRendered(function () {
   const notification = Template.currentData()
   if (notification.timeout > 0) {
-    this.timeout = Meteor.setTimeout(() => {
-      const element = this.$(this.firstNode)
-      element.animate({opacity: 0}, 'fast').animate({height: 0, marginBottom: 0, paddingBottom: 0, paddingTop: 0}, 'fast', () => {
-        Notifier.close(notification._id)
-        Meteor.clearTimeout(this.timeout)
-      })
-    }, notification.timeout)
+    this.timeout = Meteor.setTimeout(this.close, notification.timeout)
   }
 })
 
@@ -93,11 +101,12 @@ Template.componentNotifierNotification.helpers({
 })
 
 Template.componentNotifierNotification.events({
-  'click .delete' (evt, tpl) {
-    Notifier.close(this._id)
+  'click' (evt, tpl) {
+    Meteor.clearTimeout(tpl.timeout)
+    tpl.close()
   }
 })
 
 Template.componentNotifierNotification.onDestroyed(function () {
-  if (this.timeout) Meteor.clearTimeout(this.timeout)
+  Meteor.clearTimeout(this.timeout)
 })
