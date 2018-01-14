@@ -1,8 +1,7 @@
 Package.describe({
   name: 'chap:notifier',
-  version: '1.0.1',
+  version: '1.0.2',
   summary: 'Simple notifications system for Meteor',
-  // URL to the Git repository containing the source code for this package.
   git: 'https://github.com/marcchapeau/meteor-notifier.git',
   documentation: 'README.md'
 })
