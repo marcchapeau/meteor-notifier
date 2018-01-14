@@ -48,10 +48,10 @@ This entire API and all methods are available only in client code.
 
 ### Notifier.add(message, [context, duration])
 
-Add a new notification in the stack. This method returns an id. Examples:
+Add a new notification in the stack. This method returns an id.:
 
 ```js
-Notifier.add('Hello world')
+const notificationId = Notifier.add('Hello world')
 Notifier.add('Permission denied', 'danger')
 Notifier.add('Another information message', 'info', 3000)
 ```
@@ -59,3 +59,17 @@ Notifier.add('Another information message', 'info', 3000)
 ### Notifier.close(notificationId)
 
 Close a specific notification.
+
+```js
+cont notificationId = Notifier.add('Hello world')
+// ...
+Notifier.close(notificationId)
+```
+
+### Notifier.closeAll()
+
+Close all notifications.
+
+```js
+Notifier.closeAll()
+```
