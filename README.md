@@ -36,7 +36,7 @@ Notifier.config({
   contextPrefix = '',
   margin = '10px',
   offsetTop = '10px',
-  timeout = 3000,
+  timeout = 3000,// in milliseconds
   width = '300px',
   zIndex = '1000'
 })
@@ -44,4 +44,18 @@ Notifier.config({
 
 ## API
 
-Coming soon.
+This entire API and all methods are available only in client code.
+
+### Notifier.add(message,[context, duration])
+
+Add a new notification in the stack. This method returns an id. Examples:
+
+```js
+Notifier.add('Hello world')
+Notifier.add('Permission denied', 'danger')
+Notifier.add('Another information message', 'info', 3000)
+```
+
+### Notifier.close(notificationId)
+
+Close a specific notification.
