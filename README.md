@@ -49,7 +49,7 @@ This entire API and all methods are available only in client code.
 
 ### Notifier.add(message, [context, timeout])
 
-Add a new notification in the stack. This method returns an id.:
+Add a new notification in the stack. This method returns the new id.
 
 ```js
 const notificationId = Notifier.add('Hello world')
@@ -73,4 +73,42 @@ Close all notifications.
 
 ```js
 Notifier.closeAll()
+```
+
+## Examples
+
+### Bulma
+
+```js
+Notifier.config({
+  classes: 'notification',
+  contextDefault: '',
+  contextPrefix: 'is-',
+  margin: '.75rem',
+  offsetTop: '4rem',
+  zIndex: '30'
+})
+
+// ...
+
+Notifier.add('Hello world')
+Notifier.add("Permission denied", 'danger')
+Notifier.add('Another information message', 'info', 0)// 0 for an infinite timeout
+```
+
+### Bootstrap
+
+```js
+Notifier.config({
+  classes: 'alert',
+  contextDefault: 'secondary',
+  contextPrefix: 'alert-',
+  zIndex: '1030'
+})
+
+// ...
+
+Notifier.add('Hello world')
+Notifier.add("Item added", 'success')
+Notifier.add('Another information message', 'info', 0)// 0 for an infinite timeout
 ```
